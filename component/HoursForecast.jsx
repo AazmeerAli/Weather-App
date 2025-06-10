@@ -57,8 +57,8 @@ const HoursForecast = () => {
     ]
 
     return (
-        <div className='w-full rounded-md bg-gray-800 flex flex-col  text-gray-400 px-5 py-6 gap-6'>
-            <h2 className='font-bold text-xl'>Today Forecast</h2>
+        <div className=' w-full rounded-md bg-gray-800 flex flex-col  text-gray-400 p-5 gap-6'>
+            <h2 className='font-bold text-lg uppercase'>Today Forecast</h2>
             <div className='custom-hour-forecast-scrollbar w-full flex overflow-x-scroll pb-6'>
                 {data.map((value, index) => (
                     <div
@@ -74,7 +74,7 @@ const HoursForecast = () => {
                             <p className='font-semibold'>{value.temperature}&deg;</p>
                         </div>
                         {index !== data.length - 1 && (
-                            <span className='h-full w-[2px] bg-gray-500 rounded'></span>
+                            <span className='h-full w-[2px] bg-gray-600 rounded'></span>
                         )}
                     </div>
                 ))}

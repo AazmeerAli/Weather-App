@@ -11,6 +11,7 @@ export const WeatherProvider = (props) => {
     const [city, setCity] = useState('Karachi')
     const [weatherData, setWeatherData] = useState(null)
     const [currentLocalTime, setCurrentLocalTime] = useState('')
+    const [weatherIndex, setWeatherIndex] = useState(0)
     const [isDay, setIsDay] = useState(null);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -49,7 +50,7 @@ export const WeatherProvider = (props) => {
 
 
     useEffect(() => {
-        // getWeatherData()
+        getWeatherData()
     }, [city])
 
 
@@ -60,6 +61,8 @@ export const WeatherProvider = (props) => {
         setWeatherData,
         currentLocalTime,
         setCurrentLocalTime,
+        weatherIndex,
+        setWeatherIndex,
         isDay,
         setIsDay,
         loading,

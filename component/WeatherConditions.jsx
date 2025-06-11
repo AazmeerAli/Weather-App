@@ -20,43 +20,43 @@ const Conditions = ({ value }) => (
 
 const WeatherConditions = () => {
 
-  const { weatherData, setWeatherData, isDay, setIsDay } = useContext(WeatherContext)
-  const currentDay=weatherData?.days[0]
+  const { weatherData, setWeatherData, isDay, setIsDay, weatherIndex, setWeatherIndex } = useContext(WeatherContext)
+  const currentDay = weatherData?.days[weatherIndex]
 
   const data = [
     {
       name: 'Feels Like',
-      value: currentDay?.feelslike,
+      value: currentDay?.feelslike || '0',
       unit: '°',
       icon: 'circum:temp-high',
     },
     {
       name: 'Humidity Level',
-      value: currentDay?.humidity,
+      value: currentDay?.humidity || '0',
       unit: '%',
       icon: 'ion:water',
     },
     {
       name: 'Clouds',
-      value: currentDay?.cloudcover,
+      value: currentDay?.cloudcover || '0',
       unit: '%',
       icon: 'bi:clouds-fill',
     },
     {
       name: 'Visibility',
-      value: currentDay?.visibility,
+      value: currentDay?.visibility || '0',
       unit: 'km',
       icon: 'material-symbols:visibility',
     },
     {
       name: 'Wind Speed',
-      value: currentDay?.windspeed,
+      value: currentDay?.windspeed || '0',
       unit: 'km/h',
       icon: 'solar:wind-bold',
     },
     {
       name: 'Pressure',
-      value: currentDay?.pressure,
+      value: currentDay?.pressure || '0',
       unit: 'hPa',
       icon: 'lets-icons:pressure',
     },

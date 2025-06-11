@@ -11,41 +11,64 @@ const getDayfromDate = (date) => {
     return days[day]
 }
 
+const getDayData = (weatherData, index, defaultDayName, isDay) => {
+    const currentDay = weatherData?.days[index]
+    const dayName = getDayfromDate(currentDay?.datetime)
+    const icon = currentDay?.conditions ? getConditionIcon(currentDay?.conditions || '', isDay) : 'meteocons:cloudy-fill'
+    const condition = currentDay?.conditions
+    const temperature = currentDay?.temp
+
+    return {
+        time: dayName || defaultDayName,
+        icon: icon,
+        condition: condition,
+        temp: temperature,
+    }
+}
+
 const DaysForecast = () => {
 
-    const { weatherData, setWeatherData, isDay, setIsDay } = useContext(WeatherContext)
+    const { weatherData, setWeatherData, isDay, setIsDay, weatherIndex, setWeatherIndex } = useContext(WeatherContext)
+
+    // const data = [
+    //     {
+    //         time: 'Today',
+    //         icon: weatherData?.days[0]?.conditions ? getConditionIcon(weatherData?.days[0]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
+    //         condition: weatherData?.days[0]?.conditions,
+    //         temp: weatherData?.days[0]?.temp,
+    //     },  
+    //     {
+    //         time: getDayfromDate(weatherData?.days[1]?.datetime) || 'Tue',
+    //         icon: weatherData?.days[1]?.conditions ? getConditionIcon(weatherData?.days[1]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
+    //         condition: weatherData?.days[1]?.conditions,
+    //         temp: weatherData?.days[1]?.temp,
+    //     },
+    //     {
+    //         time: getDayfromDate(weatherData?.days[2]?.datetime) || 'Wed',
+    //         icon: weatherData?.days[2]?.conditions ? getConditionIcon(weatherData?.days[2]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
+    //         condition: weatherData?.days[2]?.conditions,
+    //         temp: weatherData?.days[2]?.temp,
+    //     },
+    //     {
+    //         time: getDayfromDate(weatherData?.days[3]?.datetime) || 'Thu',
+    //         icon: weatherData?.days[3]?.conditions ? getConditionIcon(weatherData?.days[3]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
+    //         condition: weatherData?.days[3]?.conditions,
+    //         temp: weatherData?.days[3]?.temp,
+    //     },
+    //     {
+    //         time: getDayfromDate(weatherData?.days[4]?.datetime) || 'Fri',
+    //         icon: weatherData?.days[4]?.conditions ? getConditionIcon(weatherData?.days[4]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
+    //         condition: weatherData?.days[4]?.conditions,
+    //         temp: weatherData?.days[4]?.temp,
+    //     },
+    // ]
 
     const data = [
-        {
-            time: 'Today',
-            icon: weatherData?.days[0]?.conditions ? getConditionIcon(weatherData?.days[0]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
-            condition: weatherData?.days[0]?.conditions,
-            temp: weatherData?.days[0]?.temp,
-        },
-        {
-            time: getDayfromDate(weatherData?.days[1]?.datetime) || 'Tue',
-            icon: weatherData?.days[1]?.conditions ? getConditionIcon(weatherData?.days[1]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
-            condition: weatherData?.days[1]?.conditions,
-            temp: weatherData?.days[1]?.temp,
-        },
-        {
-            time: getDayfromDate(weatherData?.days[2]?.datetime) || 'Wed',
-            icon: weatherData?.days[2]?.conditions ? getConditionIcon(weatherData?.days[2]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
-            condition: weatherData?.days[2]?.conditions,
-            temp: weatherData?.days[2]?.temp,
-        },
-        {
-            time: getDayfromDate(weatherData?.days[3]?.datetime) || 'Thu',
-            icon: weatherData?.days[3]?.conditions ? getConditionIcon(weatherData?.days[3]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
-            condition: weatherData?.days[3]?.conditions,
-            temp: weatherData?.days[3]?.temp,
-        },
-        {
-            time: getDayfromDate(weatherData?.days[4]?.datetime) || 'Fri',
-            icon: weatherData?.days[4]?.conditions ? getConditionIcon(weatherData?.days[4]?.conditions || '', isDay) : 'meteocons:cloudy-fill',
-            condition: weatherData?.days[4]?.conditions,
-            temp: weatherData?.days[4]?.temp,
-        },
+        getDayData(weatherData, 0, 'Today', isDay),
+        getDayData(weatherData, 1, 'Tue', isDay),
+        getDayData(weatherData, 2, 'Wed', isDay),
+        getDayData(weatherData, 3, 'Thu', isDay),
+        getDayData(weatherData, 4, 'Fri', isDay),
     ]
 
 
@@ -56,17 +79,20 @@ const DaysForecast = () => {
                 {data.map((value, index) => (
                     <div
                         key={index}
-                        className='flex flex-col items-center justify-center'
+                        className={`flex flex-col items-center justify-center`}
                     >
-                        <div className='w-full flex justify-between items-center px-4 py-2'>
+                        <div 
+                        className={`w-full flex justify-between items-center px-4 my-2 rounded-xl cursor-pointer ${weatherIndex === index ? 'bg-gray-700' : ''}`}
+                        onClick={()=>setWeatherIndex(index)}
+                        >
                             <h3 className='w-10 font-semibold text-nowrap'>{value.time}</h3>
-                            <div className='flex items-center'>
+                            <div className='flex items-center justify-center'>
                                 <Icon
                                     icon={value.icon}
-                                    className='text-7xl'
+                                    className='w-1/2 text-7xl'
                                 />
-                                <p className='capitalize font-semibold'>
-                                    {value.condition}
+                                <p className='w-1/2 capitalize font-semibold text-wrap'>
+                                    {value.condition ? value?.condition : 'N/A'}
                                 </p>
                             </div>
                             <p className='font-semibold'>

@@ -17,7 +17,7 @@ const Search = () => {
         <div className='w-full flex gap-2  font-medium'>
             <input
                 type="text"
-                placeholder='Search City'
+                placeholder='Search Location'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className='w-full text-gray-400 placeholder:text-gray-400 focus:outline-0 focus:brightness-110 transition duration-300 bg-gray-800 rounded-md px-4'

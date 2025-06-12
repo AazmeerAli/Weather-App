@@ -2,7 +2,9 @@ import { WeatherContext } from '@/context/WeatherContext';
 import { getConditionIcon } from '@/lib/getConditionIcon';
 import { isDaytime } from '@/lib/isDaytime';
 import { Icon } from '@iconify/react'
+import Image from 'next/image';
 import React, { useContext, useMemo, useState } from 'react'
+import CloudySvg from '@/app/assets/svgs/overcast.svg'
 
 function convertTo12Hour(timeString) {
     const [hour, minute] = timeString.split(":");
@@ -32,8 +34,8 @@ function formatWeatherData(weatherData, weatherIndex, hourIndex, defaultTime) {
                     hourData?.datetime
                 )
             )
-            : 'meteocons:partly-cloudy-day-fill',
-
+            : CloudySvg,
+        condition: hourData?.conditions,
         temperature: hourData?.temp || 'N/A',
     };
 }
@@ -105,19 +107,22 @@ const HoursForecast = () => {
     ], [weatherData, weatherIndex])
 
     return (
-        <div className=' w-full rounded-md bg-gray-800 flex flex-col  text-gray-400 p-5 gap-6'>
+        <div className=' w-full rounded-md bg-gray-800 flex flex-col  text-gray-400 px-3.5 py-5 sm:p-5 xl:p-6 2xl:p-7 gap-6'>
             <h2 className='font-bold text-lg uppercase'>Today Forecast</h2>
-            <div className='custom-hour-forecast-scrollbar w-full flex overflow-x-scroll pb-6'>
+            <div className='w-full custom-hour-forecast-scrollbar flex overflow-x-auto pb-6'>
                 {data.map((value, index) => (
                     <div
                         key={index}
-                        className='flex items-center justify-center'
+                        className='w-full flex items-center justify-around relative py-2 px-4 sm:px-6'
                     >
-                        <div className='flex flex-col justify-center items-center px-4 py-2'>
+                        <div className='flex flex-col justify-stretch items-center'>
                             <h3 className='font-semibold text-nowrap'>{value.time}</h3>
-                            <Icon
-                                icon={value.icon}
-                                className='text-7xl'
+                            <Image
+                                src={value?.icon}
+                                alt={value?.condition}
+                                width={50}
+                                height={50}
+                                className='w-16'
                             />
                             {weatherData?.days[weatherIndex] ? (
                                 <p className='font-semibold'>{value.temperature}&deg;</p>
@@ -126,7 +131,7 @@ const HoursForecast = () => {
                             )}
                         </div>
                         {index !== data.length - 1 && (
-                            <span className='h-full w-[2px] bg-gray-600 rounded'></span>
+                            <span className='absolute right-0 h-full w-[2px] bg-gray-600 rounded'></span>
                         )}
                     </div>
                 ))}

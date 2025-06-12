@@ -2,7 +2,9 @@
 import { WeatherContext } from '@/context/WeatherContext'
 import { getConditionIcon } from '@/lib/getConditionIcon'
 import { Icon } from '@iconify/react'
+import Image from 'next/image'
 import React, { useContext } from 'react'
+import CloudySvg from '@/app/assets/svgs/overcast.svg'
 
 const getDayfromDate = (date) => {
     const dateObj = new Date(date);
@@ -14,7 +16,7 @@ const getDayfromDate = (date) => {
 const getDayData = (weatherData, index, defaultDayName, isDay) => {
     const currentDay = weatherData?.days[index]
     const dayName = getDayfromDate(currentDay?.datetime)
-    const icon = currentDay?.conditions ? getConditionIcon(currentDay?.conditions || '', isDay) : 'meteocons:cloudy-fill'
+    const icon = currentDay?.conditions ? getConditionIcon(currentDay?.conditions || '', isDay) : CloudySvg
     const condition = currentDay?.conditions
     const temperature = currentDay?.temp
 
@@ -64,54 +66,52 @@ const DaysForecast = () => {
     // ]
 
     const data = [
-        getDayData(weatherData, 0, 'Today', isDay),
-        getDayData(weatherData, 1, 'Tue', isDay),
-        getDayData(weatherData, 2, 'Wed', isDay),
-        getDayData(weatherData, 3, 'Thu', isDay),
-        getDayData(weatherData, 4, 'Fri', isDay),
+        getDayData(weatherData, 0, 'Today', weatherIndex !== 0 ? null : isDay),
+        getDayData(weatherData, 1, 'Tue', weatherIndex !== 1 ? null : isDay),
+        getDayData(weatherData, 2, 'Wed', weatherIndex !== 2 ? null : isDay),
+        getDayData(weatherData, 3, 'Thu', weatherIndex !== 3 ? null : isDay),
+        getDayData(weatherData, 4, 'Fri', weatherIndex !== 4 ? null : isDay),
     ]
 
 
     return (
-        <div className='h-full w-full rounded-md bg-gray-800 flex flex-col  text-gray-400 px-5 py-6 gap-6'>
-            <h2 className='font-bold text-lg uppercase'>Today Forecast</h2>
-            <div className='custom-day-forecast-scrollbar w-full flex flex-col overflow-y-auto'>
+        <div className='h-full w-full rounded-md bg-gray-800 flex flex-col text-gray-400 px-3.5 py-5 sm:p-5 xl:p-6 2xl:p-7 gap-6'>
+            <h2 className='font-bold text-lg uppercase'>5 Days Forecast</h2>
+            <div className='h-full custom-day-forecast-scrollbar flex flex-col overflow-x-auto'>
                 {data.map((value, index) => (
                     <div
                         key={index}
-                        className={`flex flex-col items-center justify-center`}
+                        className={`min-w-xs h-20 lg:h-full flex flex-col items-center justify-center `}
                     >
-                        <div 
-                        className={`w-full flex justify-between items-center px-4 my-2 rounded-xl cursor-pointer ${weatherIndex === index ? 'bg-gray-700' : ''}`}
-                        onClick={()=>setWeatherIndex(index)}
+                        <div
+                            className={` w-full h-full flex items-center relative px-4 my-2  rounded-xl gap-4 cursor-pointer ${weatherIndex === index ? 'bg-gray-700' : ''}`}
+                            onClick={() => setWeatherIndex(index)}
                         >
-                            <h3 className='w-10 font-semibold text-nowrap'>{value.time}</h3>
-                            <div className='flex items-center justify-center'>
-                                <Icon
-                                    icon={value.icon}
-                                    className='w-1/2 text-7xl'
+                            {/* Left-aligned time */}
+                            <h3 className='w-16 text-left font-semibold text-nowrap'>
+                                {value.time}
+                            </h3>
+
+                            {/* Center-aligned icon + condition */}
+                            <div className='absolute left-1/2 -translate-x-1/2 flex items-center  gap-2 text-center'>
+                                <Image
+                                    src={value.icon}
+                                    alt={value?.condition}
+                                    width={50}
+                                    height={50}
+                                    className='w-20'
                                 />
-                                <p className='w-1/2 capitalize font-semibold text-wrap'>
-                                    {value.condition ? value?.condition : 'N/A'}
+                                <p className='capitalize font-semibold text-sm'>
+                                    {value.condition ? value.condition : 'N/A'}
                                 </p>
                             </div>
-                            <p className='font-semibold'>
-                                {/* {value.maxTemp}&deg;
-                                /{' '}
-                                <span className='text-gray-500'>
-                                    {value.minTemp}&deg;
-                                </span> */}
-                                {value.temp ? (
-                                    <span className='text-white'>
-                                        {value?.temp}&deg;
-                                    </span>
-                                ) : (
-                                    <span className='text-white'>
-                                        N/A
-                                    </span>
-                                )}
+
+                            {/* Right-aligned temp */}
+                            <p className='ml-auto font-semibold text-white'>
+                                {value.temp ? `${value.temp}°` : 'N/A'}
                             </p>
                         </div>
+
                         {index !== data.length - 1 && (
                             <span className='w-full h-[2px] bg-gray-600 rounded'></span>
                         )}
@@ -119,7 +119,7 @@ const DaysForecast = () => {
                 ))}
                 <style jsx>{`
                        .custom-day-forecast-scrollbar::-webkit-scrollbar{
-                        width: 4px;
+                        height: 4px;
                         margin: 10px;
                     }
                        .custom-day-forecast-scrollbar::-webkit-scrollbar-thumb {

@@ -8,7 +8,7 @@ export const WeatherContext = createContext()
 
 export const WeatherProvider = (props) => {
 
-    const [city, setCity] = useState('Karachi')
+    const [city, setCity] = useState('New York')
     const [weatherData, setWeatherData] = useState(null)
     const [currentLocalTime, setCurrentLocalTime] = useState('')
     const [weatherIndex, setWeatherIndex] = useState(0)

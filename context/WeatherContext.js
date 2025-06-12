@@ -43,8 +43,8 @@ export const WeatherProvider = (props) => {
             const result = isDaytime(data?.days[0]?.sunrise, data?.days[0]?.sunset, currentTime);
             setIsDay(result);
         }
-        catch (error) {
-            setError(error.message)
+        catch (err) {
+            setError('An unexpected error occurred')
         }
     };
 

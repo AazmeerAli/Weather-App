@@ -7,7 +7,6 @@ const Search = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const { weatherData, city, setCity } = useContext(WeatherContext)
-    console.log(weatherData)
 
     const handleSearch = () => {
         setCity(searchTerm)

@@ -46,7 +46,7 @@ It provides accurate, detailed forecasts for the current day and the next 4 days
 
 ```bash
 git clone https://github.com/AazmeerAli/Weather-App.git
-cd your-repo-name
+cd Weather-App
 ```
 
 ### 2. Install Dependencies
@@ -55,10 +55,10 @@ cd your-repo-name
 npm install
 ```
 
-### 3. Add your API Key
+### 3. Add your API Key as an Environment variable
 
 ```env
-NEXT_PUBLIC_WEATHER_API_KEY=your_visual_crossing_api_key
+NEXT_PUBLIC_API_KEY=your_visual_crossing_api_key
 ```
 
 ### 4. Run the App

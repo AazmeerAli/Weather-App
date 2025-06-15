@@ -8,7 +8,7 @@ It provides accurate, detailed forecasts for the current day and the next 4 days
 ## 🔍 Features
 
 - 📍 **Default Weather**: Shows New York’s weather on initial load.
-- 🔎 **Search Functionality**: Search any location (e.g. “Russia”) and view weather data in that location’s **local language** (e.g. Russian).
+- 🔎 **Search Functionality**: Search any location (e.g. “Russia”) and view location name in **local language** (e.g. Russian).
 - 📅 **5-Day Forecast**: Displays weather cards for:
   - Current day
   - Next 4 days
@@ -34,15 +34,9 @@ It provides accurate, detailed forecasts for the current day and the next 4 days
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: JavaScript / TypeScript (optional based on your code)
+- **Language**: JavaScript
 - **API**: RESTful (Visual Crossing)
-- **Styling**: (Mention Tailwind CSS / CSS Modules / Chakra UI etc., if used)
-
----
-
-## 📸 Screenshots
-
-> _(Add screenshots here to visually explain app UI and features)_
+- **Styling**: Tailwind CSS
 
 ---
 

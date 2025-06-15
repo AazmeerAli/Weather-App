@@ -32,14 +32,18 @@ export const WeatherProvider = (props) => {
             const res = await fetch(url);
             const data = await res.json();
             setWeatherData(data);
+            setError('')
+
             const localTime = new Intl.DateTimeFormat('en-US', {
                 hour: "numeric",
                 minute: "numeric",
                 second: "numeric",
                 timeZone: data?.timezone,
             }).format(new Date());
+
             const currentTime = localTime.split(' ')[0]
             setCurrentLocalTime(localTime)
+
             const result = isDaytime(data?.days[0]?.sunrise, data?.days[0]?.sunset, currentTime);
             setIsDay(result);
         }

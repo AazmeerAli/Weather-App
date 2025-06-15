@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌦️ Next.js Weather App
 
-## Getting Started
+A modern weather application built with **Next.js**, powered by the **Visual Crossing Weather API**.  
+It provides accurate, detailed forecasts for the current day and the next 4 days — with rich weather insights and global location search.
 
-First, run the development server:
+---
+
+## 🔍 Features
+
+- 📍 **Default Weather**: Shows New York’s weather on initial load.
+- 🔎 **Search Functionality**: Search any location (e.g. “Russia”) and view weather data in that location’s **local language** (e.g. Russian).
+- 📅 **5-Day Forecast**: Displays weather cards for:
+  - Current day
+  - Next 4 days
+- 👆 **Day Selection**: Click on any of the 5 days to see **detailed weather data**, including:
+  - 🌡️ Temperature
+  - 💧 Humidity
+  - 🌬️ Wind Speed
+  - 🌫️ Visibility
+  - 🌥️ Cloud Coverage
+  - 🌡️ Feels Like Temperature
+  - 🧭 Pressure
+- 🕒 **Hourly Forecast**: For selected day, view **24-hour forecast** (every 3 hours):
+  - 12 AM, 3 AM, 6 AM, 9 AM, 12 PM, 3 PM, 6 PM, 9 PM
+
+---
+
+## 🔗 API Used
+
+- [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: JavaScript / TypeScript (optional based on your code)
+- **API**: RESTful (Visual Crossing)
+- **Styling**: (Mention Tailwind CSS / CSS Modules / Chakra UI etc., if used)
+
+---
+
+## 📸 Screenshots
+
+> _(Add screenshots here to visually explain app UI and features)_
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/AazmeerAli/Weather-App.git
+cd your-repo-name
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Add your API Key
 
-## Learn More
+```env
+NEXT_PUBLIC_WEATHER_API_KEY=your_visual_crossing_api_key
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Run the App
+```bash
+npm run dev
+```
